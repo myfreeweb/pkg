@@ -936,7 +936,8 @@ pkg_add_check_pkg_archive(struct pkgdb *db, struct pkg *pkg,
 			continue;
 		}
 
-		if (dep->version != NULL && dep->version[0] != '\0') {
+		if (dep->version != NULL && dep->version[0] != '\0' &&
+				(flags & PKG_ADD_IGNORE_DEP_VERSIONS) == 0) {
 			snprintf(dpath, sizeof(dpath), "%s/%s-%s%s", bd,
 				dep->name, dep->version, ext);
 		} else {
@@ -955,7 +956,7 @@ pkg_add_check_pkg_archive(struct pkgdb *db, struct pkg *pkg,
 
 		if ((flags & PKG_ADD_UPGRADE) == 0 &&
 				access(dpath, F_OK) == 0) {
-			ret = pkg_add(db, dpath, PKG_ADD_AUTOMATIC,
+			ret = pkg_add(db, dpath, PKG_ADD_AUTOMATIC | (flags & PKG_ADD_IGNORE_DEP_VERSIONS),
 					keys, location);
 
 			if (ret != EPKG_OK)

@@ -82,12 +82,13 @@ exec_add(int argc, char **argv)
 		{ "automatic",           no_argument,            NULL,           'A' },
 		{ "force",               no_argument,            NULL,           'f' },
 		{ "accept-missing",      no_argument,            NULL,           'M' },
+		{ "ignore-dep-versions", no_argument,            NULL,           'D' },
 		{ "quiet",               no_argument,            NULL,           'q' },
 		{ "relocate",            required_argument,      NULL,            1  },
 		{ NULL,                  0,                      NULL,            0  }
 	};
 
-	while ((ch = getopt_long(argc, argv, "+IAfqM", longopts, NULL)) != -1) {
+	while ((ch = getopt_long(argc, argv, "+IAfqMD", longopts, NULL)) != -1) {
 		switch (ch) {
 		case 'I':
 			f |= PKG_ADD_NOSCRIPT;
@@ -101,6 +102,9 @@ exec_add(int argc, char **argv)
 			break;
 		case 'M':
 			f |= PKG_ADD_FORCE_MISSING;
+			break;
+		case 'D':
+			f |= PKG_ADD_IGNORE_DEP_VERSIONS;
 			break;
 		case 'q':
 			quiet = true;

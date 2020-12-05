@@ -22,18 +22,18 @@
 .Nd Registers a package and installs it on the system
 .Sh SYNOPSIS
 .Nm
-.Op Fl IAfMq
+.Op Fl IAfMDq
 .Ar pkg-name ...
 .Nm
-.Op Fl IAfMq
+.Op Fl IAfMDq
 .Ar <protocol>://<path>/<pkg-name> ...
 .Pp
 .Nm
-.Op Cm --{no-scripts,automatic,force,accept-missing,quiet}
+.Op Cm --{no-scripts,automatic,force,accept-missing,ignore-dep-versions,quiet}
 .Op Cm --relocate Ar location
 .Ar pkg-name ...
 .Nm
-.Op Cm --{no-scripts,automatic,force,accept-missing,quiet}
+.Op Cm --{no-scripts,automatic,force,accept-missing,ignore-dep-versions,quiet}
 .Op Cm --relocate Ar location
 .Ar <protocol>://<path>/<pkg-name> ...
 .Sh DESCRIPTION
@@ -88,6 +88,11 @@ If any installation scripts (pre-install or post-install) exist for given
 packages, do not execute them.
 .It Fl M , Cm --accept-missing
 Force the installation of the package with missing dependencies.
+.It Fl D , Cm --ignore-dep-versions
+When searching for dependencies in the same directory, always use globbing
+for
+.Ar pkg-name ,
+even if the package contains an exact version of the dependency.
 .It Fl q , Cm --quiet
 Force quiet output.
 .It Cm --relocate Ar location
